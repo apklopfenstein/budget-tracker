@@ -9,6 +9,7 @@ const FILES_TO_CACHE = [
     "./js/idb.js"
 ];
 
+// Install service worker
 self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open(CACHE_NAME).then(function (cache) {
@@ -18,6 +19,7 @@ self.addEventListener('install', function (e) {
     )
 })
 
+// Activate service worker
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList) {
@@ -38,6 +40,7 @@ self.addEventListener('activate', function (e) {
     );
 });
 
+// Intercepting fetch requests and responding with static files from cache or continue fetch request
 self.addEventListener('fetch', function (e) {
     console.log('fetch request : ' + e.request.url)
     e.respondWith(
